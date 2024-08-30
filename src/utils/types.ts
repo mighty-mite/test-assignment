@@ -12,4 +12,6 @@ export interface InitialState {
   cards: ICard[];
   cardsLoadingStatus: string;
   liked: ICard[];
+  filtered: ICard[];
+  filter: "all" | "liked";
 }

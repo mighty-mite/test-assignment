@@ -6,6 +6,8 @@ const initialState: InitialState = {
   cards: [],
   cardsLoadingStatus: "idle",
   liked: [],
+  filtered: [],
+  filter: "all",
 };
 
 export const fetchCards = createAsyncThunk("cards/fetchCards", () => {
@@ -18,7 +20,10 @@ const cardsSlice = createSlice({
   initialState,
   reducers: {
     removeCard: (state, action) => {
-      state.cards = state.cards.filter((card) => card.id !== action.payload);
+      // state.cards = state.cards.filter((card) => card.id !== action.payload);
+      state.filtered = state.filtered.filter(
+        (card) => card.id !== action.payload
+      );
     },
     updateLiked: (state, action) => {
       const target = state.liked.find((card) => card.id === action.payload);
@@ -29,6 +34,16 @@ const cardsSlice = createSlice({
         state.liked = state.liked.filter((item) => item.id !== action.payload);
       }
     },
+    filterCards: (state, action) => {
+      if (action.payload === "all") {
+        state.filtered = state.cards;
+      } else if (action.payload === "liked") {
+        state.filtered = state.liked;
+      }
+    },
+    updateFilter: (state, action) => {
+      state.filter = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -38,6 +53,7 @@ const cardsSlice = createSlice({
       .addCase(fetchCards.fulfilled, (state, action) => {
         state.cardsLoadingStatus = "idle";
         state.cards = action.payload.data;
+        state.filtered = state.cards;
       })
       .addCase(fetchCards.rejected, (state) => {
         state.cardsLoadingStatus = "error";
@@ -48,6 +64,6 @@ const cardsSlice = createSlice({
 
 export const { actions, reducer } = cardsSlice;
 
-export const { removeCard, updateLiked } = actions;
+export const { removeCard, updateLiked, filterCards, updateFilter } = actions;
 
 export default reducer;

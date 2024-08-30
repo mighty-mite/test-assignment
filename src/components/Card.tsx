@@ -7,6 +7,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../store/store";
 import { updateLiked, removeCard } from "../store/cardsSlice";
+import { Link } from "react-router-dom";
 
 interface CardProps {
   title: string;
@@ -33,12 +34,14 @@ export default function Card(props: CardProps) {
   return (
     <>
       <MUICard key={id}>
-        <Typography gutterBottom variant="h5" component="div">
-          {title.substring(0, 15) + "..."}
-        </Typography>
-        <Typography variant="body2" sx={{ color: "text.secondary" }}>
-          {description.substring(0, 70) + "..."}
-        </Typography>
+        <Link to={`/${id}`}>
+          <Typography gutterBottom variant="h5" component="div">
+            {title.substring(0, 15) + "..."}
+          </Typography>
+          <Typography variant="body2" sx={{ color: "text.secondary" }}>
+            {description.substring(0, 70) + "..."}
+          </Typography>
+        </Link>
         <Checkbox
           onChange={() => onLike(id)}
           icon={<FavoriteBorder />}

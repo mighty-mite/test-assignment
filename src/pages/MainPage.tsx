@@ -5,13 +5,14 @@ import { AppDispatch, RootState } from "./../store/store";
 import Card from "../components/Card";
 import { useEffect } from "react";
 import { ICard } from "../utils/types";
+import Filter from "../components/Filter";
 
 export default function MainPage() {
   const dispatch = useDispatch<AppDispatch>();
-  const { cards } = useSelector((state: RootState) => state.cards);
+  const { filtered } = useSelector((state: RootState) => state.cards);
 
   useEffect(() => {
-    if (cards.length === 0) dispatch(fetchCards());
+    if (filtered.length === 0) dispatch(fetchCards());
   }, [dispatch]);
 
   const renderCards = (arr: ICard[]) => {
@@ -27,10 +28,11 @@ export default function MainPage() {
     });
   };
 
-  const content = renderCards(cards);
+  const content = renderCards(filtered);
 
   return (
     <section className="main">
+      <Filter />
       <div
         style={{
           display: "grid",
