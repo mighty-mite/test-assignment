@@ -11,4 +11,5 @@ export interface ICard {
 export interface InitialState {
   cards: ICard[];
   cardsLoadingStatus: string;
+  liked: ICard[];
 }
