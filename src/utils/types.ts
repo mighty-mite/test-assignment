@@ -1,10 +1,10 @@
 export interface ICard {
-  category: string;
+  category?: string;
   description: string;
   id: number;
-  image: string;
+  image?: string;
   price: number;
-  rating: { count: number; rate: number };
+  rating?: { count: number; rate: number };
   title: string;
 }
 

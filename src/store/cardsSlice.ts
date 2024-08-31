@@ -68,6 +68,7 @@ const cardsSlice = createSlice({
 
 export const { actions, reducer } = cardsSlice;
 
-export const { removeCard, updateLiked, filterCards, updateFilter } = actions;
+export const { removeCard, updateLiked, filterCards, updateFilter, addCard } =
+  actions;
 
 export default reducer;
