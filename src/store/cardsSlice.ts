@@ -1,5 +1,5 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { InitialState } from "../utils/types";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { ICard, InitialState } from "../utils/types";
 import useHttp from "../utils/useHttp";
 
 const initialState: InitialState = {
@@ -20,10 +20,14 @@ const cardsSlice = createSlice({
   initialState,
   reducers: {
     removeCard: (state, action) => {
-      // state.cards = state.cards.filter((card) => card.id !== action.payload);
       state.filtered = state.filtered.filter(
         (card) => card.id !== action.payload
       );
+      state.liked = state.liked.filter((card) => card.id !== action.payload);
+    },
+    addCard: (state, action: PayloadAction<ICard>) => {
+      state.filtered.push(action.payload);
+      state.cards.push(action.payload);
     },
     updateLiked: (state, action) => {
       const target = state.liked.find((card) => card.id === action.payload);
