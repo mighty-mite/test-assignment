@@ -23,6 +23,7 @@ const cardsSlice = createSlice({
       state.filtered = state.filtered.filter(
         (card) => card.id !== action.payload
       );
+      state.cards = state.cards.filter((card) => card.id !== action.payload);
       state.liked = state.liked.filter((card) => card.id !== action.payload);
     },
     addCard: (state, action: PayloadAction<ICard>) => {

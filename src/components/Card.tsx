@@ -34,7 +34,7 @@ export default function Card(props: CardProps) {
   return (
     <>
       <MUICard key={id}>
-        <Link to={`/${id}`}>
+        <Link style={{ color: "black" }} to={`/${id}`}>
           <Typography gutterBottom variant="h5" component="div">
             {title.substring(0, 15) + "..."}
           </Typography>

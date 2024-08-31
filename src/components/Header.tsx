@@ -2,16 +2,15 @@ import { Link } from "react-router-dom";
 
 function Header() {
   return (
-    <header className="header">
-      <nav>
-        <Link className="header__logo-link" to="/">
-          main page
-        </Link>
-        <div className="header__buttons">
-          <Link className="header__cart" to="/create-product">
-            create new product
-          </Link>
-        </div>
+    <header
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        padding: "20px",
+      }}>
+      <nav style={{ display: "flex", gap: "2rem" }}>
+        <Link to="/">Main Page</Link>
+        <Link to="/create-product">Create New Product</Link>
       </nav>
     </header>
   );
