@@ -2,17 +2,19 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Skeleton } from "@mui/material";
 import { ICard } from "../utils/types";
-import useHttp from "../utils/useHttp";
+import { RootState } from "../store/store";
+import { useSelector } from "react-redux";
 
 export default function ProductPage() {
   const [card, setCard] = useState<ICard>();
-  const { getSingleProduct } = useHttp();
+  const { filtered } = useSelector((state: RootState) => state.cards);
   const { id } = useParams();
 
   useEffect(() => {
-    if (!id) return;
-    getSingleProduct(id).then((data: ICard) => setCard(data));
-  }, [getSingleProduct, id]);
+    const target = filtered.find((item) => item.id === Number(id));
+    if (!target) return;
+    setCard(target);
+  }, []);
 
   return (
     <>
