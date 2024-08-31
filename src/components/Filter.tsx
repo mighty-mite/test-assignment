@@ -6,11 +6,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../store/store";
 import { filterCards, updateFilter } from "../store/cardsSlice";
 
-export default function Filter() {
+interface FilterProps {
+  changePage: () => void;
+}
+
+export default function Filter(props: FilterProps) {
+  const { changePage } = props;
   const dispatch = useDispatch<AppDispatch>();
   const { filter } = useSelector((state: RootState) => state.cards);
 
   const handleFilterChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    changePage();
     dispatch(updateFilter(event.target.value));
     dispatch(filterCards(event.target.value));
   };
