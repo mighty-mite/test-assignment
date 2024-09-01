@@ -1,7 +1,7 @@
 export interface ICard {
   category?: string;
   description: string;
-  id: number;
+  id: number | string;
   image?: string;
   price: number;
   rating?: { count: number; rate: number };
