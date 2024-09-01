@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 interface CardProps {
   title: string;
   description: string;
-  id: number;
+  id: number | string;
 }
 
 export default function Card(props: CardProps) {
@@ -24,11 +24,11 @@ export default function Card(props: CardProps) {
     return liked ? true : false;
   });
 
-  const onRemove = (id: number) => {
+  const onRemove = (id: number | string) => {
     dispatch(removeCard(id));
   };
 
-  const onLike = (id: number) => {
+  const onLike = (id: number | string) => {
     dispatch(updateLiked(id));
   };
   return (
