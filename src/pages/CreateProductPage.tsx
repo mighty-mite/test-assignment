@@ -2,7 +2,6 @@ import { Alert, Button, Snackbar, Stack, TextField } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import * as yup from "yup";
-import { v4 as uuidv4 } from "uuid";
 
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useDispatch } from "react-redux";
@@ -45,7 +44,7 @@ export default function CreateProductPage() {
   const [openSnackbar, setOpenSnackbar] = useState(false);
 
   const onSubmit: SubmitHandler<IFormValues> = (data) => {
-    const newCard = { ...data, id: uuidv4() };
+    const newCard = { ...data, id: Math.random() };
     dispatch(addCard(newCard));
     reset();
     setOpenSnackbar(true);
