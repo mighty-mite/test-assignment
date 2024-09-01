@@ -11,7 +11,7 @@ export default function ProductPage() {
   const { id } = useParams();
 
   useEffect(() => {
-    const target = filtered.find((item) => item.id === Number(id));
+    const target = filtered.find((item) => item.id === id);
     if (!target) return;
     setCard(target);
   }, []);
