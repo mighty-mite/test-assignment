@@ -1,4 +1,4 @@
-import { Button, Stack, TextField } from "@mui/material";
+import { Alert, Button, Snackbar, Stack, TextField } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import * as yup from "yup";
@@ -6,6 +6,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../store/store";
 import { addCard } from "../store/cardsSlice";
+import { useState } from "react";
 
 interface IFormValues {
   title: string;
@@ -32,15 +33,30 @@ export default function CreateProductPage() {
   const {
     handleSubmit,
     control,
+    reset,
     formState: { errors },
   } = useForm<IFormValues>({
     defaultValues,
     resolver: yupResolver(schema),
   });
 
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+
   const onSubmit: SubmitHandler<IFormValues> = (data) => {
     const newCard = { ...data, id: Math.random() };
     dispatch(addCard(newCard));
+    reset();
+    setOpenSnackbar(true);
+  };
+
+  const handleCloseSnackbar = (
+    _: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpenSnackbar(false);
   };
 
   return (
@@ -94,6 +110,18 @@ export default function CreateProductPage() {
           </Button>
         </Stack>
       </form>
+      <Snackbar
+        open={openSnackbar}
+        autoHideDuration={3000}
+        onClose={handleCloseSnackbar}
+        anchorOrigin={{ vertical: "bottom", horizontal: "left" }}>
+        <Alert
+          onClose={handleCloseSnackbar}
+          severity="success"
+          sx={{ width: "100%" }}>
+          Product created successfully!
+        </Alert>
+      </Snackbar>
     </section>
   );
 }
